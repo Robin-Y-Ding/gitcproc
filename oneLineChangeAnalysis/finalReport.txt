@@ -1,0 +1,465 @@
+----------------------
+Project: twitter4j
+Count of commits that only contains one line replacement: 149
+Count of commits: 2318
+Percentage of one line replacement: 6.4279551337359795%
+----------------------
+Project: checkstyle
+Count of commits that only contains one line replacement: 1248
+Count of commits: 8585
+Percentage of one line replacement: 14.536983110075713%
+----------------------
+Project: jstorm
+Count of commits that only contains one line replacement: 22
+Count of commits: 333
+Percentage of one line replacement: 6.606606606606607%
+----------------------
+Project: javaee7-samples
+Count of commits that only contains one line replacement: 108
+Count of commits: 1508
+Percentage of one line replacement: 7.161803713527852%
+----------------------
+Project: ansj_seg
+Count of commits that only contains one line replacement: 62
+Count of commits: 682
+Percentage of one line replacement: 9.090909090909092%
+----------------------
+Project: auto
+Count of commits that only contains one line replacement: 89
+Count of commits: 1019
+Percentage of one line replacement: 8.73405299313052%
+----------------------
+Project: android-Ultra-Pull-To-Refresh
+Count of commits that only contains one line replacement: 7
+Count of commits: 182
+Percentage of one line replacement: 3.8461538461538463%
+----------------------
+Project: mybatis-3
+Count of commits that only contains one line replacement: 347
+Count of commits: 2964
+Percentage of one line replacement: 11.70715249662618%
+----------------------
+Project: drag-sort-listview
+Count of commits that only contains one line replacement: 10
+Count of commits: 165
+Percentage of one line replacement: 6.0606060606060606%
+----------------------
+Project: Android-PullToRefresh
+Count of commits that only contains one line replacement: 20
+Count of commits: 477
+Percentage of one line replacement: 4.1928721174004195%
+----------------------
+Project: spring-security-oauth
+Count of commits that only contains one line replacement: 90
+Count of commits: 1282
+Percentage of one line replacement: 7.02028081123245%
+----------------------
+Project: Activiti
+Count of commits that only contains one line replacement: 592
+Count of commits: 8425
+Percentage of one line replacement: 7.026706231454006%
+----------------------
+Project: FizzBuzzEnterpriseEdition
+Count of commits that only contains one line replacement: 17
+Count of commits: 161
+Percentage of one line replacement: 10.559006211180124%
+----------------------
+Project: gephi
+Count of commits that only contains one line replacement: 271
+Count of commits: 4618
+Percentage of one line replacement: 5.868341273278475%
+----------------------
+Project: pinpoint
+Count of commits that only contains one line replacement: 645
+Count of commits: 10601
+Percentage of one line replacement: 6.084331666823885%
+----------------------
+Project: webmagic
+Count of commits that only contains one line replacement: 82
+Count of commits: 1015
+Percentage of one line replacement: 8.078817733990148%
+----------------------
+Project: swagger-core
+Count of commits that only contains one line replacement: 259
+Count of commits: 3576
+Percentage of one line replacement: 7.242729306487695%
+----------------------
+Project: NineOldAndroids
+Count of commits that only contains one line replacement: 12
+Count of commits: 115
+Percentage of one line replacement: 10.434782608695652%
+----------------------
+Project: clojure
+Count of commits that only contains one line replacement: 470
+Count of commits: 3290
+Percentage of one line replacement: 14.285714285714286%
+----------------------
+Project: android-volley
+Count of commits that only contains one line replacement: 27
+Count of commits: 1932
+Percentage of one line replacement: 1.3975155279503106%
+----------------------
+Project: Essentials
+Count of commits that only contains one line replacement: 470
+Count of commits: 4328
+Percentage of one line replacement: 10.859519408502774%
+----------------------
+Project: camel
+Count of commits that only contains one line replacement: 5575
+Count of commits: 38906
+Percentage of one line replacement: 14.32940934560222%
+----------------------
+Project: scribejava
+Count of commits that only contains one line replacement: 81
+Count of commits: 1106
+Percentage of one line replacement: 7.32368896925859%
+----------------------
+Project: SlidingMenu
+Count of commits that only contains one line replacement: 21
+Count of commits: 336
+Percentage of one line replacement: 6.25%
+----------------------
+Project: dagger
+Count of commits that only contains one line replacement: 38
+Count of commits: 701
+Percentage of one line replacement: 5.420827389443652%
+----------------------
+Project: springside4
+Count of commits that only contains one line replacement: 25
+Count of commits: 1074
+Percentage of one line replacement: 2.3277467411545625%
+----------------------
+Project: roboguice
+Count of commits that only contains one line replacement: 113
+Count of commits: 1054
+Percentage of one line replacement: 10.721062618595825%
+----------------------
+Project: guice
+Count of commits that only contains one line replacement: 103
+Count of commits: 1737
+Percentage of one line replacement: 5.929763960852044%
+----------------------
+Project: guava
+Count of commits that only contains one line replacement: 220
+Count of commits: 5025
+Percentage of one line replacement: 4.378109452736318%
+----------------------
+Project: spring-mvc-showcase
+Count of commits that only contains one line replacement: 13
+Count of commits: 76
+Percentage of one line replacement: 17.105263157894736%
+----------------------
+Project: aws-sdk-java
+Count of commits that only contains one line replacement: 58
+Count of commits: 2126
+Percentage of one line replacement: 2.7281279397930387%
+----------------------
+Project: android-common
+Count of commits that only contains one line replacement: 46
+Count of commits: 299
+Percentage of one line replacement: 15.384615384615385%
+----------------------
+Project: wildfly
+Count of commits that only contains one line replacement: 2632
+Count of commits: 28012
+Percentage of one line replacement: 9.395973154362416%
+----------------------
+Project: fastjson
+Count of commits that only contains one line replacement: 200
+Count of commits: 3132
+Percentage of one line replacement: 6.385696040868455%
+----------------------
+Project: crawler4j
+Count of commits that only contains one line replacement: 63
+Count of commits: 509
+Percentage of one line replacement: 12.37721021611002%
+----------------------
+Project: ActionBarSherlock
+Count of commits that only contains one line replacement: 130
+Count of commits: 1480
+Percentage of one line replacement: 8.783783783783784%
+----------------------
+Project: disconf
+Count of commits that only contains one line replacement: 151
+Count of commits: 1158
+Percentage of one line replacement: 13.03972366148532%
+----------------------
+Project: openhab
+Count of commits that only contains one line replacement: 583
+Count of commits: 9633
+Percentage of one line replacement: 6.052112529845323%
+----------------------
+Project: HanLP
+Count of commits that only contains one line replacement: 133
+Count of commits: 1161
+Percentage of one line replacement: 11.455641688199828%
+----------------------
+Project: jedis
+Count of commits that only contains one line replacement: 162
+Count of commits: 1586
+Percentage of one line replacement: 10.21437578814628%
+----------------------
+Project: java-design-patterns
+Count of commits that only contains one line replacement: 156
+Count of commits: 2193
+Percentage of one line replacement: 7.113543091655266%
+----------------------
+Project: canal
+Count of commits that only contains one line replacement: 84
+Count of commits: 1275
+Percentage of one line replacement: 6.588235294117647%
+----------------------
+Project: CoreNLP
+Count of commits that only contains one line replacement: 945
+Count of commits: 15233
+Percentage of one line replacement: 6.203636841068732%
+----------------------
+Project: dubbo
+Count of commits that only contains one line replacement: 339
+Count of commits: 3569
+Percentage of one line replacement: 9.49845895208742%
+----------------------
+Project: hive
+Count of commits that only contains one line replacement: 531
+Count of commits: 13637
+Percentage of one line replacement: 3.893818288479871%
+----------------------
+Project: ListViewAnimations
+Count of commits that only contains one line replacement: 40
+Count of commits: 609
+Percentage of one line replacement: 6.568144499178982%
+----------------------
+Project: druid
+Count of commits that only contains one line replacement: 680
+Count of commits: 9590
+Percentage of one line replacement: 7.090719499478624%
+----------------------
+Project: antlr4
+Count of commits that only contains one line replacement: 484
+Count of commits: 7197
+Percentage of one line replacement: 6.725024315687092%
+----------------------
+Project: alluxio
+Count of commits that only contains one line replacement: 2534
+Count of commits: 30165
+Percentage of one line replacement: 8.40046411403945%
+----------------------
+Project: titan
+Count of commits that only contains one line replacement: 353
+Count of commits: 4434
+Percentage of one line replacement: 7.961208840775823%
+----------------------
+Project: jersey
+Count of commits that only contains one line replacement: 168
+Count of commits: 3167
+Percentage of one line replacement: 5.304704767919167%
+----------------------
+Project: javapoet
+Count of commits that only contains one line replacement: 81
+Count of commits: 787
+Percentage of one line replacement: 10.292249047013977%
+----------------------
+Project: cucumber-jvm
+Count of commits that only contains one line replacement: 269
+Count of commits: 4251
+Percentage of one line replacement: 6.32792284168431%
+----------------------
+Project: okio
+Count of commits that only contains one line replacement: 50
+Count of commits: 873
+Percentage of one line replacement: 5.72737686139748%
+----------------------
+Project: druid
+Count of commits that only contains one line replacement: 680
+Count of commits: 9590
+Percentage of one line replacement: 7.090719499478624%
+----------------------
+Project: presto
+Count of commits that only contains one line replacement: 1010
+Count of commits: 15956
+Percentage of one line replacement: 6.32990724492354%
+----------------------
+Project: ViewPagerIndicator
+Count of commits that only contains one line replacement: 20
+Count of commits: 241
+Percentage of one line replacement: 8.298755186721992%
+----------------------
+Project: atmosphere
+Count of commits that only contains one line replacement: 774
+Count of commits: 5852
+Percentage of one line replacement: 13.226247436773752%
+----------------------
+Project: hadoop
+Count of commits that only contains one line replacement: 652
+Count of commits: 22493
+Percentage of one line replacement: 2.8986795892055306%
+----------------------
+Project: jsonschema2pojo
+Count of commits that only contains one line replacement: 76
+Count of commits: 1023
+Percentage of one line replacement: 7.429130009775171%
+----------------------
+Project: zheng
+Count of commits that only contains one line replacement: 140
+Count of commits: 1239
+Percentage of one line replacement: 11.299435028248588%
+----------------------
+Project: ActiveAndroid
+Count of commits that only contains one line replacement: 21
+Count of commits: 284
+Percentage of one line replacement: 7.394366197183099%
+----------------------
+Project: metrics
+Count of commits that only contains one line replacement: 359
+Count of commits: 2505
+Percentage of one line replacement: 14.3313373253493%
+----------------------
+Project: HikariCP
+Count of commits that only contains one line replacement: 439
+Count of commits: 2681
+Percentage of one line replacement: 16.374487131667287%
+----------------------
+Project: deeplearning4j
+Count of commits that only contains one line replacement: 4
+Count of commits: 100
+Percentage of one line replacement: 4.0%
+----------------------
+Project: solo
+Count of commits that only contains one line replacement: 374
+Count of commits: 3621
+Percentage of one line replacement: 10.328638497652582%
+----------------------
+Project: Mycat-Server
+Count of commits that only contains one line replacement: 152
+Count of commits: 2514
+Percentage of one line replacement: 6.046141607000796%
+----------------------
+Project: netty
+Count of commits that only contains one line replacement: 810
+Count of commits: 9420
+Percentage of one line replacement: 8.598726114649681%
+----------------------
+Project: graylog2-server
+Count of commits that only contains one line replacement: 1896
+Count of commits: 15299
+Percentage of one line replacement: 12.392966860579122%
+----------------------
+Project: storm
+Count of commits that only contains one line replacement: 769
+Count of commits: 10077
+Percentage of one line replacement: 7.631239456187357%
+----------------------
+Project: spring-boot
+Count of commits that only contains one line replacement: 4056
+Count of commits: 22748
+Percentage of one line replacement: 17.83013891331106%
+----------------------
+Project: neo4j
+Count of commits that only contains one line replacement: 3554
+Count of commits: 60712
+Percentage of one line replacement: 5.853867439715377%
+----------------------
+Project: retrofit
+Count of commits that only contains one line replacement: 142
+Count of commits: 1750
+Percentage of one line replacement: 8.114285714285714%
+----------------------
+Project: nanohttpd
+Count of commits that only contains one line replacement: 50
+Count of commits: 599
+Percentage of one line replacement: 8.347245409015025%
+----------------------
+Project: hazelcast
+Count of commits that only contains one line replacement: 1381
+Count of commits: 28937
+Percentage of one line replacement: 4.772436672771883%
+----------------------
+Project: jsoup
+Count of commits that only contains one line replacement: 168
+Count of commits: 1261
+Percentage of one line replacement: 13.322759714512292%
+----------------------
+Project: Bukkit
+Count of commits that only contains one line replacement: 203
+Count of commits: 1509
+Percentage of one line replacement: 13.452617627567927%
+----------------------
+Project: async-http-client
+Count of commits that only contains one line replacement: 596
+Count of commits: 4013
+Percentage of one line replacement: 14.851731871417892%
+----------------------
+Project: spring-petclinic
+Count of commits that only contains one line replacement: 92
+Count of commits: 658
+Percentage of one line replacement: 13.98176291793313%
+----------------------
+Project: YCSB
+Count of commits that only contains one line replacement: 82
+Count of commits: 1251
+Percentage of one line replacement: 6.554756195043965%
+----------------------
+Project: okhttp
+Count of commits that only contains one line replacement: 166
+Count of commits: 4163
+Percentage of one line replacement: 3.9875090079269757%
+----------------------
+Project: dex2jar
+Count of commits that only contains one line replacement: 48
+Count of commits: 557
+Percentage of one line replacement: 8.617594254937163%
+----------------------
+Project: dropwizard
+Count of commits that only contains one line replacement: 680
+Count of commits: 5011
+Percentage of one line replacement: 13.570145679505089%
+----------------------
+Project: junit
+Count of commits that only contains one line replacement: 202
+Count of commits: 2397
+Percentage of one line replacement: 8.427200667501044%
+----------------------
+Project: otto
+Count of commits that only contains one line replacement: 18
+Count of commits: 205
+Percentage of one line replacement: 8.78048780487805%
+----------------------
+Project: libgdx
+Count of commits that only contains one line replacement: 1045
+Count of commits: 13796
+Percentage of one line replacement: 7.574659321542476%
+----------------------
+Project: openmrs-core
+Count of commits that only contains one line replacement: 986
+Count of commits: 10796
+Percentage of one line replacement: 9.13301222675065%
+----------------------
+Project: hbase
+Count of commits that only contains one line replacement: 1049
+Count of commits: 16724
+Percentage of one line replacement: 6.272422865343219%
+----------------------
+Project: swagger-codegen
+Count of commits that only contains one line replacement: 734
+Count of commits: 10687
+Percentage of one line replacement: 6.868157574623374%
+----------------------
+Project: spark
+Count of commits that only contains one line replacement: 92
+Count of commits: 977
+Percentage of one line replacement: 9.416581371545547%
+----------------------
+Project: closure-compiler
+Count of commits that only contains one line replacement: 623
+Count of commits: 14387
+Percentage of one line replacement: 4.330298185862237%
+----------------------
+Project: flink
+Count of commits that only contains one line replacement: 980
+Count of commits: 17905
+Percentage of one line replacement: 5.473331471655962%
+----------------------------------
+----------------------------------
+Total one line replacement count: 47181
+Count of commits: 577605
+Overall percentage of one line replacement: 8.16838496896668%
