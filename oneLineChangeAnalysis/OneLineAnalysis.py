@@ -3,6 +3,7 @@ import json
 import os
 import sys
 import re
+import glob
 
 
 def readProj():
@@ -174,8 +175,19 @@ def genProjectsList():
 		projList.write(p + '\n')
 
 
+def mergeCSV():
+	csvFiles = 'ChangeSummary/*.csv'
+	fnList = glob.glob(csvFiles)
+	merged = open("ChangeSummary.csv", 'w')
+	for fn in fnList:
+		f = open(fn, 'r')
+		content = f.read().replace("project,sha,author,author_email,commit_date,is_bug\n", '')
+		merged.write(content)
+		f.close()
+
+
 def bugFixAnalysis():
-	changeSum = open('ChangeSummary.csv', 'r')
+	changeSum = open('Top100BuggyChangeSummary.csv', 'r')
 	bugFixCommitsStat = open('BugFixCommitsStats.txt', 'w')
 	bugFixCommitsNumstat = open('BugFixCommitsNumstats.txt', 'w')
 	projectsBase = "projects/"
@@ -184,9 +196,10 @@ def bugFixAnalysis():
 
 	for c in commits:
 		proj, sha, author, email, date, bugFix = c.strip().replace("'", "").split(',')
-		proj = proj.replace('"', '')
+		proj = proj.replace('"', "\\'")
 		if bugFix == 'True':
 			projPath = os.path.join(projectsBase, proj)
+			#print(projPath)
 			cmd = ''
 			cmd = cmd + "cd " + projPath + ";"
 			cmd = cmd + "git show --stat " + sha
@@ -222,14 +235,29 @@ def countFiles():
 
 	print(modFile)
 
-	y = len(re.findall("commit\s[a-zA-Z0-9]+\nAuthor:\s", Numstat))
-	print(y)
+	#y = len(re.findall("commit\s[a-zA-Z0-9]+\nAuthor:\s", Numstat))
+	#print(y)
 	rep = Numstat.count("\n1\t1\t")
 	dele = Numstat.count("\n1\t0\t")
 	inst = Numstat.count("\n0\t1\t")
 
 	modif = rep + dele + inst
 	print(modif)
+
+
+def countCommit():
+	bugFixCommitsStat = open('BugFixCommitsStats.txt', 'r')
+	Stat = bugFixCommitsStat.read()
+	y = len(re.findall("commit\s[a-zA-Z0-9]+\nAuthor:\s", Stat))
+	print("Commmit: " + str(y))
+
+	rep = Stat.count("1 file changed, 1 insertion(+), 1 deletion(-)\n")
+	dele = Stat.count("1 file changed, 1 insertion(+)\n")
+	inst = Stat.count("1 file changed, 1 deletion(-)\n")
+
+	modif = rep + dele + inst
+	print("One Line Commit: " + str(modif))
+
 #getOneLineChange()
 #readProj()
 #readProjJavaOnly()
@@ -237,4 +265,8 @@ def countFiles():
 
 #bugFixAnalysis()
 
-countFiles()
+#countFiles()
+
+countCommit()
+
+#mergeCSV()
