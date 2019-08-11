@@ -187,62 +187,99 @@ def mergeCSV():
 
 
 def bugFixAnalysis():
-	changeSum = open('Top100BuggyChangeSummary.csv', 'r')
-	bugFixCommitsStat = open('BugFixCommitsStats.txt', 'w')
-	bugFixCommitsNumstat = open('BugFixCommitsNumstats.txt', 'w')
-	projectsBase = "projects/"
-	commits = changeSum.readlines()
-	cnt = 0
+	csvFiles = 'Top100BuggyChangeSummary/*.csv'
+	fnList = glob.glob(csvFiles)
 
-	for c in commits:
-		proj, sha, author, email, date, bugFix = c.strip().replace("'", "").split(',')
-		proj = proj.replace('"', "\\'")
-		if bugFix == 'True':
-			projPath = os.path.join(projectsBase, proj)
-			#print(projPath)
-			cmd = ''
-			cmd = cmd + "cd " + projPath + ";"
-			cmd = cmd + "git show --stat " + sha
-			result1 = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, shell=True)
-			result1 = result1.stdout.decode('utf-8')
-			bugFixCommitsStat.write(result1)
+	for fn in fnList:
+		changeSum = open(fn, 'r')
+		#changeSum = open('Top100BuggyChangeSummary.csv', 'r')
+		#bugFixCommitsStat = open('BugFixCommitsStats.txt', 'w')
+		#bugFixCommitsNumstat = open('BugFixCommitsNumstats.txt', 'w')
+		projectsBase = "projects/"
+		bugStatBase = "bugfixstat/"
+		bugNumStatBase = "bugfixnumstat/"
+		commits = changeSum.readlines()
+		cnt = 0
 
-			cmd = ''
-			cmd = cmd + "cd " + projPath + ";"
-			cmd = cmd + "git show --numstat " + sha
-			result2 = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, shell=True)
-			result2 = result2.stdout.decode('utf-8')
-			bugFixCommitsNumstat.write(result2)
+		stat = open(os.path.join(bugStatBase, os.path.basename(fn).replace("ChangeSummary.csv", "Stats.txt")), 'w')
+		numstat = open(os.path.join(bugNumStatBase, os.path.basename(fn).replace("ChangeSummary.csv", "NumStats.txt")), 'w')
+		for c in commits:
+			proj, sha, author, email, date, bugFix = c.strip().replace("'", "").split(',')
+			proj = proj.replace('"', "\\'")
 
-			cnt += 1
+			if bugFix == 'True':
+				projPath = os.path.join(projectsBase, proj)
+				#print(projPath)
+				cmd = ''
+				cmd = cmd + "cd " + projPath + ";"
+				cmd = cmd + "git show --stat " + sha
+				result1 = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, shell=True)
+				result1 = result1.stdout.decode('utf-8')
+				stat.write(result1)
 
-	print("Total bug fix commits: " + str(cnt))
+				cmd = ''
+				cmd = cmd + "cd " + projPath + ";"
+				cmd = cmd + "git show --numstat " + sha
+				result2 = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, shell=True)
+				result2 = result2.stdout.decode('utf-8')
+				numstat.write(result2)
+
+				cnt += 1
+
+		print(proj + "--->>>" + "Total bug fix commits: " + str(cnt))
+		stat.close()
+		numstat.close()
 
 
 def countFiles():
-	bugFixCommitsStat = open('BugFixCommitsStats.txt', 'r')
-	bugFixCommitsNumstat = open('BugFixCommitsNumstats.txt', 'r')
-	Stat = bugFixCommitsStat.readlines()
-	Numstat = bugFixCommitsNumstat.read()
+	countReport = open('BugFixReport.txt', 'w')
+	totalMod = 0
+	totalOnelineMod = 0
 
-	modFile = 0
-	for l in Stat:
-		#if "file changed, " in l or "files changed, " in l:
-		x = re.findall("\s[0-9]+\sfiles?\schanged,\s", l)
-		if (x):
-			m = int(l.split(' ')[1])
-			modFile = modFile + m
+	fs = 'bugfixstat/*.txt'
+	fnList = glob.glob(fs)
+	for fn in fnList:
+		bugFixCommitsStat = open(fn, 'r')
+		bugFixCommitsNumstat = open(os.path.join("bugfixnumstat", os.path.basename(fn).replace("Stats.txt", "NumStats.txt")), 'r')
 
-	print(modFile)
+		projName = os.path.basename(fn).replace("Stats.txt", "").replace("'__'",'/')
+		countReport.write("---------------------------\n")
+		countReport.write("Project: " + projName + '\n')
+		#bugFixCommitsStat = open('BugFixCommitsStats.txt', 'r')
+		#bugFixCommitsNumstat = open('BugFixCommitsNumstats.txt', 'r')
+		Stat = bugFixCommitsStat.readlines()
+		Numstat = bugFixCommitsNumstat.read()
 
-	#y = len(re.findall("commit\s[a-zA-Z0-9]+\nAuthor:\s", Numstat))
-	#print(y)
-	rep = Numstat.count("\n1\t1\t")
-	dele = Numstat.count("\n1\t0\t")
-	inst = Numstat.count("\n0\t1\t")
+		modFile = 0
+		for l in Stat:
+			#if "file changed, " in l or "files changed, " in l:
+			x = re.findall("\s[0-9]+\sfiles?\schanged,\s", l)
+			if (x):
+				m = int(l.split(' ')[1])
+				modFile = modFile + m
 
-	modif = rep + dele + inst
-	print(modif)
+		countReport.write("Modified files: " + str(modFile) + '\n')
+		totalMod += modFile
+
+		#y = len(re.findall("commit\s[a-zA-Z0-9]+\nAuthor:\s", Numstat))
+		#print(y)
+		rep = Numstat.count("\n1\t1\t")
+		dele = Numstat.count("\n1\t0\t")
+		inst = Numstat.count("\n0\t1\t")
+
+		modif = rep + dele + inst
+		countReport.write("One-line modifed files: " + str(modif) + '\n')
+		countReport.write("Ratio of one line modifcation: " + str(modif * 100 / modFile) + ' %' + '\n')
+		totalOnelineMod += modif
+		bugFixCommitsStat.close()
+		bugFixCommitsNumstat.close()
+		#print(modif)
+
+	countReport.write("\n\n<<<<<<<<<<<<<<<<<<<<Total>>>>>>>>>>>>>>>>>>\n")
+	countReport.write("Total modified files: " + str(totalMod) + '\n')
+	countReport.write("Total one line modified files: " + str(totalOnelineMod) + '\n')
+	countReport.write("Ratio of one line modification: " + str(totalOnelineMod * 100 / totalMod) + ' %' + '\n')
+	countReport.close()
 
 
 def countCommit():
@@ -265,8 +302,8 @@ def countCommit():
 
 #bugFixAnalysis()
 
-#countFiles()
+countFiles()
 
-countCommit()
+#countCommit()
 
 #mergeCSV()
