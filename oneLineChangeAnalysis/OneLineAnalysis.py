@@ -4,6 +4,7 @@ import os
 import sys
 import re
 import glob
+import statistics
 
 
 def readProj():
@@ -186,6 +187,25 @@ def mergeCSV():
 		f.close()
 
 
+def allChangeAnalysis():
+	statBase = '/home/robin/Documents/allchangestat'
+	numStatBase = '/home/robin/Documents/allchangenumstat'
+	projBase = 'projects'
+	projList = open('ProjList.txt', 'r')
+	projs = projList.readlines()
+	for proj in projs:
+		proj = proj.strip().replace('/', "\\'__\\'")
+		projStat = proj.strip().replace('/', "\\'__\\'") + '_stat.txt'
+		projNumStat = proj.strip().replace('/', "\\'__\\'") + '_numstat.txt'
+		cmd = ''
+		cmd += "cd " + os.path.join(projBase, proj) + ';'
+		cmd += "git log --stat --follow *.java > " + os.path.join(statBase, projStat) + ';'
+		#print (cmd)
+		cmd += "git log --numstat --follow *.java > " + os.path.join(numStatBase, projNumStat) + ';'
+		subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, shell=True)
+
+
+
 def bugFixAnalysis():
 	csvFiles = 'Top100BuggyChangeSummary/*.csv'
 	fnList = glob.glob(csvFiles)
@@ -231,22 +251,27 @@ def bugFixAnalysis():
 		numstat.close()
 
 
-def countFiles():
-	countReport = open('BugFixReport.txt', 'w')
+#TODO: If open-source, do refactoring --> Design Class to implement these.
+
+def countAllChange():
+	#countReport = open('AllChangeReport.txt', 'w')
 	totalMod = 0
 	totalOnelineMod = 0
+	ratioList = list()
+	allChange = dict()
 
-	fs = 'bugfixstat/*.txt'
+	fs = 'allchangestat/*.txt'
 	fnList = glob.glob(fs)
+	details = dict()
 	for fn in fnList:
-		bugFixCommitsStat = open(fn, 'r')
-		bugFixCommitsNumstat = open(os.path.join("bugfixnumstat", os.path.basename(fn).replace("Stats.txt", "NumStats.txt")), 'r')
+		projDetail = dict()
+		bugFixCommitsStat = open(fn, 'r', encoding="ISO-8859-1")
+		bugFixCommitsNumstat = open(os.path.join("allchangenumstat", os.path.basename(fn).replace("stat.txt", "numstat.txt")), 'r', encoding="ISO-8859-1")
 
-		projName = os.path.basename(fn).replace("Stats.txt", "").replace("'__'",'/')
-		countReport.write("---------------------------\n")
-		countReport.write("Project: " + projName + '\n')
-		#bugFixCommitsStat = open('BugFixCommitsStats.txt', 'r')
-		#bugFixCommitsNumstat = open('BugFixCommitsNumstats.txt', 'r')
+		projName = os.path.basename(fn).replace("_stat.txt", "").replace("'__'",'/')
+		#countReport.write("---------------------------\n")
+		#countReport.write("Project: " + projName + '\n')
+		projDetail["projName"] = projName
 		Stat = bugFixCommitsStat.readlines()
 		Numstat = bugFixCommitsNumstat.read()
 
@@ -255,30 +280,160 @@ def countFiles():
 			#if "file changed, " in l or "files changed, " in l:
 			x = re.findall("\s[0-9]+\sfiles?\schanged,\s", l)
 			if (x):
-				m = int(l.split(' ')[1])
+				m = int(x[0].split(' ')[1])
 				modFile = modFile + m
 
-		countReport.write("Modified files: " + str(modFile) + '\n')
+		#countReport.write("Modified files: " + str(modFile) + '\n')
+		projDetail["modFile"] = modFile
 		totalMod += modFile
 
 		#y = len(re.findall("commit\s[a-zA-Z0-9]+\nAuthor:\s", Numstat))
 		#print(y)
+
 		rep = Numstat.count("\n1\t1\t")
 		dele = Numstat.count("\n1\t0\t")
 		inst = Numstat.count("\n0\t1\t")
 
 		modif = rep + dele + inst
-		countReport.write("One-line modifed files: " + str(modif) + '\n')
-		countReport.write("Ratio of one line modifcation: " + str(modif * 100 / modFile) + ' %' + '\n')
+		ratio = modif * 100 / modFile
+		ratioList.append(ratio)
+		#countReport.write("One-line modifed files: " + str(modif) + '\n')
+		projDetail["modif"] = modif
+		#countReport.write("Ratio of one line modifcation: " + str(ratio) + ' %' + '\n')
+		projDetail["ratio"] = ratio
 		totalOnelineMod += modif
+		details[projName] = projDetail
 		bugFixCommitsStat.close()
 		bugFixCommitsNumstat.close()
 		#print(modif)
 
-	countReport.write("\n\n<<<<<<<<<<<<<<<<<<<<Total>>>>>>>>>>>>>>>>>>\n")
-	countReport.write("Total modified files: " + str(totalMod) + '\n')
-	countReport.write("Total one line modified files: " + str(totalOnelineMod) + '\n')
-	countReport.write("Ratio of one line modification: " + str(totalOnelineMod * 100 / totalMod) + ' %' + '\n')
+	#countReport.write("\n\n<<<<<<<<<<<<<<<<<<<<Total>>>>>>>>>>>>>>>>>>\n")
+	allChange["details"] = details
+	ratioMedian = statistics.median(ratioList)
+	ratioMax = max(ratioList)
+	#countReport.write("Total modified files: " + str(totalMod) + '\n')
+	allChange["totalMod"] = totalMod
+	#countReport.write("Total one line modified files: " + str(totalOnelineMod) + '\n')
+	allChange["totalOnelineMod"] = totalOnelineMod
+	#countReport.write("Maximum ratio of one line modification: " + str(ratioMax) + ' %' + '\n')
+	allChange["ratioMax"] = ratioMax
+	#countReport.write("Median ratio of one line modification: " + str(ratioMedian) + ' %' + '\n')
+	allChange["ratioMedian"] = ratioMedian
+	#countReport.write("Average ratio of one line modification: " + str(totalOnelineMod * 100 / totalMod) + ' %' + '\n')
+	allChange["ratioAvg"] = totalOnelineMod * 100 / totalMod
+	#countReport.close()
+	return allChange
+
+
+def countBugFix():
+	#bugCountReport = open('BugFixReport.txt', 'w')
+	totalMod = 0
+	totalOnelineMod = 0
+	ratioList = list()
+	bugFix = dict()
+
+	fs = 'bugfixstat/*.txt'
+	fnList = glob.glob(fs)
+	details = dict()
+	for fn in fnList:
+		projDetail = dict()
+		bugFixCommitsStat = open(fn, 'r')
+		bugFixCommitsNumstat = open(os.path.join("bugfixnumstat", os.path.basename(fn).replace("Stats.txt", "NumStats.txt")), 'r')
+
+		projName = os.path.basename(fn).replace("Stats.txt", "").replace("'__'",'/')
+		#countReport.write("---------------------------\n")
+		#countReport.write("Project: " + projName + '\n')
+		projDetail["projName"] = projName
+		Stat = bugFixCommitsStat.readlines()
+		Numstat = bugFixCommitsNumstat.read()
+
+		modFile = 0
+		for l in Stat:
+			#if "file changed, " in l or "files changed, " in l:
+			x = re.findall("\s[0-9]+\sfiles?\schanged,\s", l)
+			if (x):
+				m = int(x[0].split(' ')[1])
+				modFile = modFile + m
+
+		#countReport.write("Modified files: " + str(modFile) + '\n')
+		projDetail["modFile"] = modFile
+		totalMod += modFile
+
+		#y = len(re.findall("commit\s[a-zA-Z0-9]+\nAuthor:\s", Numstat))
+		#print(y)
+
+		rep = Numstat.count("\n1\t1\t")
+		dele = Numstat.count("\n1\t0\t")
+		inst = Numstat.count("\n0\t1\t")
+
+		modif = rep + dele + inst
+		ratio = modif * 100 / modFile
+		ratioList.append(ratio)
+		#countReport.write("One-line modifed files: " + str(modif) + '\n')
+		projDetail["modif"] = modif
+		#countReport.write("Ratio of one line modifcation: " + str(ratio) + ' %' + '\n')
+		projDetail["ratio"] = ratio
+		totalOnelineMod += modif
+		details[projName] = projDetail
+		bugFixCommitsStat.close()
+		bugFixCommitsNumstat.close()
+		#print(modif)
+
+	#countReport.write("\n\n<<<<<<<<<<<<<<<<<<<<Total>>>>>>>>>>>>>>>>>>\n")
+	bugFix["details"] = details
+	ratioMedian = statistics.median(ratioList)
+	ratioMax = max(ratioList)
+	#countReport.write("Total modified files: " + str(totalMod) + '\n')
+	bugFix["totalMod"] = totalMod
+	#countReport.write("Total one line modified files: " + str(totalOnelineMod) + '\n')
+	bugFix["totalOnelineMod"] = totalOnelineMod
+	#countReport.write("Maximum ratio of one line modification: " + str(ratioMax) + ' %' + '\n')
+	bugFix["ratioMax"] = ratioMax
+	#countReport.write("Median ratio of one line modification: " + str(ratioMedian) + ' %' + '\n')
+	bugFix["ratioMedian"] = ratioMedian
+	#countReport.write("Average ratio of one line modification: " + str(totalOnelineMod * 100 / totalMod) + ' %' + '\n')
+	bugFix["ratioAvg"] = totalOnelineMod * 100 / totalMod
+	#countReport.close()
+	return bugFix
+
+
+def countFiles():
+	allChange = countAllChange()
+	bugFix = countBugFix()
+	countReport = open("FinalReport.txt", 'w')
+
+	projList = open("ProjList.txt",'r')
+	projs = projList.readlines()
+	for proj in projs:
+		proj = proj.strip()
+
+		countReport.write("---------------------------\n")
+		countReport.write("Project: " + proj + '\n\n')
+
+		countReport.write("All Change modified files: " + str(allChange["details"][proj]["modFile"]) + '\n')
+		countReport.write("All Change one-line modified files: " + str(allChange["details"][proj]["modif"]) + '\n')
+		countReport.write("All Change ratio of one-line modifcation: " + str(allChange["details"][proj]["ratio"]) + '%' + '\n')
+		countReport.write('\n')
+
+		countReport.write("Bug Fix modified files: " + str(bugFix["details"][proj]["modFile"]) + '\n')
+		countReport.write("Bug Fix one-line modified files: " + str(bugFix["details"][proj]["modif"]) + '\n')
+		countReport.write("Bug Fix ratio of one-line modifcation: " + str(bugFix["details"][proj]["ratio"]) + '%' + '\n')
+	
+
+	countReport.write("\n\n-----------------------Total--------------------")
+	countReport.write("\n\n<<<<<<<<<<<<<<<<<<<<<Bug Fix>>>>>>>>>>>>>>>>>>>>\n")
+	countReport.write("Total modified files: " + str(bugFix["totalMod"]) + '\n')
+	countReport.write("Total one line modified files: " + str(bugFix["totalOnelineMod"]) + '\n')
+	countReport.write("Maximum ratio of one line modification: " + str(bugFix["ratioMax"]) + ' %' + '\n')
+	countReport.write("Median ratio of one line modification: " + str(bugFix["ratioMedian"]) + ' %' + '\n')
+	countReport.write("Average ratio of one line modification: " + str(bugFix["ratioAvg"]) + ' %' + '\n')
+
+	countReport.write("\n\n<<<<<<<<<<<<<<<<<<<<All Change>>>>>>>>>>>>>>>>>>\n")
+	countReport.write("Total modified files: " + str(allChange["totalMod"]) + '\n')
+	countReport.write("Total one line modified files: " + str(allChange["totalOnelineMod"]) + '\n')
+	countReport.write("Maximum ratio of one line modification: " + str(allChange["ratioMax"]) + ' %' + '\n')
+	countReport.write("Median ratio of one line modification: " + str(allChange["ratioMedian"]) + ' %' + '\n')
+	countReport.write("Average ratio of one line modification: " + str(allChange["ratioAvg"]) + ' %' + '\n')
 	countReport.close()
 
 
@@ -295,6 +450,8 @@ def countCommit():
 	modif = rep + dele + inst
 	print("One Line Commit: " + str(modif))
 
+
+
 #getOneLineChange()
 #readProj()
 #readProjJavaOnly()
@@ -307,3 +464,7 @@ countFiles()
 #countCommit()
 
 #mergeCSV()
+
+#allChangeAnalysis()
+
+#countAllChange()
